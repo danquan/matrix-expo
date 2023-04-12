@@ -17,7 +17,6 @@ Có $p + 1$ processes thì chia ra làm $p$ phần dọc hoặc ngang tùy ý:
                     pppppppppppppp
 
 Mỗi process sẽ tính một phần như đã chia; tổng độ phức tạp:
-
     - Thời gian: $O(\frac{n^3}{p})$
     - Vận chuyển: $O(\frac{mn}{p} + mn)$ [Master -> Worker] + $O(mn / p)$ [Worker -> Master]
 
@@ -45,7 +44,6 @@ Mỗi process sẽ tính (ma trận con của A) * (ma trận con của B) tươ
 Sau đó tính tổng chập của các ma trận mà các process trả về, thu được ma trận đáp án.
 
 Độ phức tạp:
-
     - Thời gian: $O(\frac{n^3}{p})$
     - Vận chuyển: $O(\frac{mn}{p} + \frac{mn}{p})$ [Master -> Worker] + $O(mn)$ [Worker -> Master]
 
