@@ -53,8 +53,7 @@ Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít
 
 <h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang - Matrix_Expo_3</h2>
 
-$q = \sqrt{p}$
-Ma trận sẽ trông kiểu:
+Với $q = \sqrt{p}$, ma trận sẽ có dạng:
 
     001122...qq
     001122...qq
