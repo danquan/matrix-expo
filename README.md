@@ -4,7 +4,7 @@ Tính tích hai ma trận $A, B$; tức là $A\times B$ sử dụng thư viện 
 
 <h1>Các ý tưởng nhân ma trận đa luồng</h1>
 
-<h2>1. Chia nhỏ bảng ma trận kết quả</h2>
+<h2>1. Chia nhỏ bảng ma trận kết quả - Matrix_Expo_1.cpp</h2>
 
 Có $p + 1$ processes thì chia ra làm $p$ phần dọc hoặc ngang tùy ý:
 
@@ -21,7 +21,7 @@ Mỗi process sẽ tính một phần như đã chia; tổng độ phức tạp:
     - Thời gian: $O(\frac{n^3}{p})$
     - Vận chuyển: $O(\frac{mn}{p} + mn)$ [Master -> Worker] + $O(mn / p)$ [Worker -> Master]
 
-<h2>2. Giữ nguyên bảng ma trận kết quả, chia nhỏ ma trận A, B:</h2>
+<h2>2. Giữ nguyên bảng ma trận kết quả, chia nhỏ ma trận A, B - Matrix_Expo_2</h2>
 
 Có $p + 1$ processes thì chia ra A ra làm $p$ phần dọc và B thành $p$ phần ngang:
 
@@ -51,7 +51,7 @@ Sau đó tính tổng chập của các ma trận mà các process trả về, t
 
 Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít thông tin hơn, nên thời gian gửi đi của master ít hơn, còn các worker gửi về song song)
 
-<h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang</h2>
+<h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang - Matrix_Expo_3</h2>
 
 $q = \sqrt{p}$
 Ma trận sẽ trông kiểu:
@@ -72,20 +72,18 @@ Ma trận sẽ trông kiểu:
 
 <h3>Bộ test với $m, n = 1000$ và $a[i][j] \in [-1, 1]$</h3>
 
-- Async: 2899ms
-- Sync: 2881ms
+
 
 <h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-1000, 1000]$</h3>
 
-- Async: 3246ms
-- Sync: 3183ms
+
 
 <h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-10^9, 10^9]$ (testMatrix_test_1000_1000_1e9.INP)</h3>
 
-    - Divide idea 1:
+    - Matrix_Expo_1:
         - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
         - Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms
-    - Divide idea 2:
+    - Matrix_Expo_2:
         - Async: (2 processes): 4389ms, (3 processes): 3741ms, (4 processes): 4274ms, (5 processes) : 4128ms
         - Sync: (2 processes): 4508ms, (3 processes): 3997ms, (4 processes): 4052ms, (5 processes) : 4112ms 
 
