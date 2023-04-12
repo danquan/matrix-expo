@@ -170,7 +170,7 @@ void Solve() {
         //Print answer
         for(int i = 0; i < res.nRows; ++i)
             for(int j = 0; j < res.nCols; ++j)
-                cout << res.a[i][j] << (j == res.nCols - 1 ? "\n" : " ");
+                cout << (res.a[i][j] + mod) % mod << (j == res.nCols - 1 ? "\n" : " ");
     }
 }
 
