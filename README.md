@@ -2,7 +2,7 @@
 
 Tính tích hai ma trận $A, B$; tức là $A\times B$ sử dụng thư viện MPI (C++)
 
-<h1>Yêu cầu:<h1>
+<h1>Yêu cầu:</h1>
 - Trình dịch C++ GNU: https://gcc.gnu.org/
 - Thư viện \href{https://www.mpich.org/}{mpich}
 
