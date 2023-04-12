@@ -2,6 +2,10 @@
 
 Tính tích hai ma trận $A, B$; tức là $A\times B$ sử dụng thư viện MPI (C++)
 
+<h1>Yêu cầu:<h1>
+- Trình dịch C++ GNU: https://gcc.gnu.org/
+- Thư viện \href{https://www.mpich.org/}{mpich}
+
 <h1>Các ý tưởng nhân ma trận đa luồng</h1>
 
 <h2>1. Chia nhỏ bảng ma trận kết quả - Matrix_Expo_1.cpp</h2>
