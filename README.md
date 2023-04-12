@@ -45,7 +45,6 @@ Sau đó tính tổng chập của các ma trận mà các process trả về, t
 Độ phức tạp:
 
     - Thời gian: $O(\frac{n^3}{p})$
-
     - Vận chuyển: $O(\frac{mn}{p} + \frac{mn}{p})$ [Master -> Worker] + $O(mn)$ [Worker -> Master]
 
 Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít thông tin hơn, nên thời gian gửi đi của master ít hơn, còn các worker gửi về song song)
@@ -70,19 +69,19 @@ Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít
 <h1>Analysis Matrix_Expo</h1>
 
 Bộ test với m, n = 1000 và a[i][j] \in [-1, 1]
-Async: 2899ms
-Sync: 2881ms
+- Async: 2899ms
+- Sync: 2881ms
 
 Bộ test với m,n = 1000 và a[i][j] \in [-1000, 1000]
-Async: 3246ms
-Sync: 3183ms
+- Async: 3246ms
+- Sync: 3183ms
 
 Bộ test với m,n = 1000 và a[i][j] \in [-1e9, 1e9] (testMatrix_test_1000_1000_1e9.INP)
-    Divide idea 1:
-        Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
-        Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms
-    Divide idea 2:
-        Async: (2 processes): 4389ms, (3 processes): 3741ms, (4 processes): 4274ms, (5 processes) : 4128ms
-        Sync: (2 processes): 4508ms, (3 processes): 3997ms, (4 processes): 4052ms, (5 processes) : 4112ms 
+    - Divide idea 1:
+        - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
+        - Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms
+    - Divide idea 2:
+        - Async: (2 processes): 4389ms, (3 processes): 3741ms, (4 processes): 4274ms, (5 processes) : 4128ms
+        - Sync: (2 processes): 4508ms, (3 processes): 3997ms, (4 processes): 4052ms, (5 processes) : 4112ms 
 
 ----------------------------------------------------
