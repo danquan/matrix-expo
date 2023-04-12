@@ -1,5 +1,7 @@
 # Matrix Exponential using MultiProcessing
 
+Tính tích hai ma trận $A, B$; tức là $A\times B$ sử dụng thư viện MPI (C++)
+
 <h1>Các ý tưởng nhân ma trận đa luồng</h1>
 
 <h2>1. Chia nhỏ bảng ma trận kết quả</h2>
@@ -78,7 +80,7 @@ Ma trận sẽ trông kiểu:
 - Async: 3246ms
 - Sync: 3183ms
 
-<h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-1e9, 1e9]$ (testMatrix_test_1000_1000_1e9.INP)</h3>
+<h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-10^9, 10^9]$ (testMatrix_test_1000_1000_1e9.INP)</h3>
 
     - Divide idea 1:
         - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
