@@ -27,13 +27,13 @@ Mỗi process sẽ tính một phần như đã chia; tổng độ phức tạp:
                         ppppppppppppp
                         ppppppppppppp
 
-0011...pp               
+<p>0011...pp               
 0011...pp
 0011...pp
 0011...pp
 0011...pp
 0011...pp
-0011...pp
+0011...pp</p>
 
 Mỗi process sẽ tính (ma trận con của A) * (ma trận con của B) tương ứng mà nó quản lí
 Sau đó tính tổng chập của các ma trận mà các process trả về, thu được ma trận đáp án.
