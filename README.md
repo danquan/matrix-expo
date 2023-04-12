@@ -68,15 +68,17 @@ Ma trận sẽ trông kiểu:
 -----------------------------------------------------
 <h1>Analysis Matrix_Expo</h1>
 
-Bộ test với m, n = 1000 và a[i][j] \in [-1, 1]
+<h3>Bộ test với $m, n = 1000$ và $a[i][j] \in [-1, 1]$</h3>
+
 - Async: 2899ms
 - Sync: 2881ms
 
-Bộ test với m,n = 1000 và a[i][j] \in [-1000, 1000]
+<h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-1000, 1000]$</h3>
+
 - Async: 3246ms
 - Sync: 3183ms
 
-Bộ test với m,n = 1000 và a[i][j] \in [-1e9, 1e9] (testMatrix_test_1000_1000_1e9.INP)
+<h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-1e9, 1e9]$ (testMatrix_test_1000_1000_1e9.INP)</h3>
 
     - Divide idea 1:
         - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
