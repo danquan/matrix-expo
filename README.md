@@ -51,8 +51,8 @@ Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít
 
 <h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang</h2>
 
-- $q = \sqrt{p}$
-- Ma trận sẽ trông kiểu:
+$q = \sqrt{p}$
+Ma trận sẽ trông kiểu:
 
     001122...qq
     001122...qq
@@ -77,6 +77,7 @@ Bộ test với m,n = 1000 và a[i][j] \in [-1000, 1000]
 - Sync: 3183ms
 
 Bộ test với m,n = 1000 và a[i][j] \in [-1e9, 1e9] (testMatrix_test_1000_1000_1e9.INP)
+
     - Divide idea 1:
         - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
         - Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms
