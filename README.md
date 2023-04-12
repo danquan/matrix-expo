@@ -24,7 +24,7 @@ Có $p + 1$ processes thì chia ra làm $p$ phần dọc hoặc ngang tùy ý:
 Mỗi process sẽ tính một phần như đã chia; tổng độ phức tạp:
 
 - Thời gian: $O(\frac{n^3}{p})$
-- Vận chuyển: $O(\frac{mn}{p} + mn)$ [Master -> Worker] + $O(mn / p)$ [Worker -> Master]
+- Vận chuyển: $O(\frac{mn}{p} + mn)$ [Master -> Worker] + $O(\frac{mn}{p})$ [Worker -> Master]
 
 <h2>2. Giữ nguyên bảng ma trận kết quả, chia nhỏ ma trận A, B - Matrix_Expo_2</h2>
 
