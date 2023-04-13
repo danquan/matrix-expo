@@ -112,54 +112,65 @@ void Read() {
     res.nRows = A.nRows;
     res.nCols = B.nCols;
 
-    int p = (int) sqrt(numProcess);
-    int len = (A.nRows + p - 1) / p;
+    int numProcess1 = sqrt(1.0 * A.nRows * numProcess /B.nCols); int numProcess2 = numProcess /numProcess1;//sqrt(1.0 * B.nCols * numProcess /A.nRows);
+    int len1 = (A.nRows + numProcess1 - 1) / numProcess1; int len2 = (B.nCols + numProcess2 - 1) / numProcess2;
+
+    int limit = numProcess1 * numProcess2;
+    for (int i = 0; i < numProcess; ++i) MPI_Send(&limit, 1, MPI_INT, i, 1, MPI_COMM_WORLD);
 
     //Now, distribute matrix
-    for(int i = 0; i < p; ++i)
-        for (int j = 0; j < p; ++j) {
-            int cntTag = 0;
-            sendMatrix(i * p + j, cntTag, A, {i * len, 0}, {min(A.nRows - 1, (i + 1) * len - 1), A.nCols - 1});
-            sendMatrix(i * p + j, cntTag, B, {0, j * len}, {B.nRows - 1, min(B.nCols - 1, (j + 1) * len - 1)});
+    for(int i = 0; i < numProcess1; ++i)
+        for (int j = 0; j < numProcess2; ++j) {
+            int cntTag = 1;
+
+            sendMatrix(i * numProcess2 + j, cntTag, A, {i * len1, 0}, {min(A.nRows - 1, (i + 1) * len1 - 1), A.nCols - 1});
+            sendMatrix(i * numProcess2 + j, cntTag, B, {0, j * len2}, {B.nRows - 1, min(B.nCols - 1, (j + 1) * len2 - 1)});
         }
 }
 
 void Solve() {
-    int cntTag = 0;
-    recvMatrix(MASTER_PROC, cntTag, A);
-    recvMatrix(MASTER_PROC, cntTag, B);
-
-    // {
-    //     cout << "Report from process " << rankProcess << ":\n------------------------\n";
-    //     cout << "Matrix A: " << A.nRows << " " << A.nCols << "\n";
-    //     for(int i = 0; i < A.nRows; ++i)
-    //         for(int j = 0 ; j < A.nCols; ++j)
-    //             cout << A.a[i][j] << (j == A.nCols - 1 ? "\n" : " ");
-    //     cout << "----------------\n";
-    //     cout << "Matrix B: " << B.nRows << " " << B.nCols << "\n";
-    //     for(int i = 0; i < B.nRows; ++i)
-    //         for(int j = 0 ; j < B.nCols; ++j)
-    //             cout << B.a[i][j] << (j == B.nCols - 1 ? "\n" : " ");
-    //             cout << "----------------\n";   
-    // }
+    int cntTag = 1; int limit;
+    MPI_Recv(&limit, 1, MPI_INT, MASTER_PROC, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     
-    A = A * B;
+    if (rankProcess < limit) {
+        recvMatrix(MASTER_PROC, cntTag, A);
+        recvMatrix(MASTER_PROC, cntTag, B);
+    
+        // {
+        //     cout << "Report from process " << rankProcess << ":\n------------------------\n";
+        //     cout << "Matrix A: " << A.nRows << " " << A.nCols << "\n";
+        //     for(int i = 0; i < A.nRows; ++i)
+        //         for(int j = 0 ; j < A.nCols; ++j)
+        //             cout << A.a[i][j] << (j == A.nCols - 1 ? "\n" : " ");
+        //     cout << "----------------\n";
+        //     cout << "Matrix B: " << B.nRows << " " << B.nCols << "\n";
+        //     for(int i = 0; i < B.nRows; ++i)
+        //         for(int j = 0 ; j < B.nCols; ++j)
+        //             cout << B.a[i][j] << (j == B.nCols - 1 ? "\n" : " ");
+        //             cout << "----------------\n";   
+        // }
+        
+        A = A * B;
 
-    cntTag = 0;
-    sendMatrix(MASTER_PROC, cntTag, A, {0, 0}, {A.nRows - 1, A.nCols - 1});
-    MPI_Barrier(MPI_COMM_WORLD); // wait until all workers send datas
+        cntTag = 0;
+        sendMatrix(MASTER_PROC, cntTag, A, {0, 0}, {A.nRows - 1, A.nCols - 1});
+    }
+    
+    //MPI_Barrier(MPI_COMM_WORLD); // wait until all workers send datas
 
     if(rankProcess == MASTER_PROC)  {
+        int numProcess1 = sqrt(1.0 * A.nRows * numProcess /B.nCols); int numProcess2 = numProcess /numProcess1;//sqrt(1.0 * B.nCols * numProcess /A.nRows);
+        int len1 = (A.nRows + numProcess1 - 1) / numProcess1; int len2 = (B.nCols + numProcess2 - 1) / numProcess2;
+        
         res.nCols = 0;
-        int p = (int) sqrt(numProcess);
 
-        for(int src1 = 0; src1 < p; ++src1) {
+        for(int src1 = 0; src1 < numProcess1; ++src1) {
             res.nRows = 0;
             int prevCol = 0;
 
-            for (int src2 = 0; src2 < p; ++src2) {
-                cntTag = 0;
-                recvMatrix(src1 * p + src2, cntTag, B);
+            for (int src2 = 0; src2 < numProcess2; ++src2) {
+                int cntTag = 0;
+                recvMatrix(src1 * numProcess2 + src2, cntTag, B);
 
                 for(int i = 0; i < B.nRows; ++i)
                     for(int j = 0; j < B.nCols; ++j)
@@ -190,9 +201,12 @@ int main(int argc, char* argv[]) {
     if (rankProcess == MASTER_PROC) Read();
 
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    //MPI_Barrier(MPI_COMM_WORLD);
 
     Solve();
+
+    if (rankProcess == MASTER_PROC)
+        cerr << "\nTime elapsed: " << 1000 * clock() / CLOCKS_PER_SEC << "ms\n";
 
     MPI_Finalize();
 
