@@ -1,7 +1,0 @@
-
-Matrix_Expo_3:6363 terminated with signal 11 at PC=5601ce6d909b SP=7ffe33a08980.  Backtrace:
-./Matrix_Expo_3(+0x209b)[0x5601ce6d909b]
-./Matrix_Expo_3(+0x235e)[0x5601ce6d935e]
-/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7f47db829d90]
-/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7f47db829e40]
-./Matrix_Expo_3(+0x1365)[0x5601ce6d8365]

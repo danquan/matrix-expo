@@ -71,6 +71,20 @@ Với $q = \sqrt{p}$, ma trận sẽ có dạng:
 - Nhược điểm:
     - Không tận dụng được hết các process (Do số process đôi khi không phải số chính phương)
     - Cài đặt async rất khó
+
+<h2>4. Thay đổi mô hình tính toán</h2>
+
+- Thay vì sử dụng mô hình Master-Worker hay Peer-to-Peer, thiết kế ra một mô hình mới
+- Mô hình sử dụng chia để trị:
+
+                          Master
+                        /        \
+                Worker1             Worker2
+                /   \              /       \
+        Worker3     Worker4     Worker5     Worker6
+
+- Dự đoán sẽ tốt khi có nhiều process
+
 -----------------------------------------------------
 <h1>Analysis Matrix_Expo</h1>
 
@@ -85,10 +99,13 @@ Với $q = \sqrt{p}$, ma trận sẽ có dạng:
 <h3>Bộ test với $m,n = 1000$ và $a[i][j] \in [-10^9, 10^9]$ (testMatrix_test_1000_1000_1e9.INP)</h3>
 
     - Matrix_Expo_1:
-        - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 10752ms
-        - Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms
+        - Sync: (2 processes): 5722ms, (3 processes): 4650ms, (4 processes): 5600ms, (5 processes): 5416ms, (16 processes): 5188ms
+        - Async: (2 processes): 5451ms, (3 processes): 5110ms, (4 processes): 5651ms, (5 processes): 7347ms, (16 processes): 4993ms
     - Matrix_Expo_2:
-        - Async: (2 processes): 4389ms, (3 processes): 3741ms, (4 processes): 4274ms, (5 processes) : 4128ms
-        - Sync: (2 processes): 4508ms, (3 processes): 3997ms, (4 processes): 4052ms, (5 processes) : 4112ms 
+        - Sync: (2 processes): 4508ms, (3 processes): 3997ms, (4 processes): 4052ms, (5 processes) : 4112ms, (16 processes): 4455ms
+        - Async: (2 processes): 4389ms, (3 processes): 3741ms, (4 processes): 4274ms, (5 processes) : 4128ms, (16 processes): 5254ms
+    - Matrix_Expo_4 base on idea 1:
+        - Sync: (2 processes): 5315ms, (3 processes): 4930ms, (4 processes): 6003ms, (5 processes): 5723ms, (16 processes): 4800ms
+        - Async: (2 processes): 5368ms, (3 processes): 4978ms, (4 processes): 6060ms, (5 processes): 5207ms, (16 processes): 4311ms
 
 ----------------------------------------------------
