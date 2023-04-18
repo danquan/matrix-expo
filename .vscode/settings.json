@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "matrix_expo_4": "cpp"
+        "matrix_expo_4": "cpp",
+        "iostream": "cpp"
     }
 }

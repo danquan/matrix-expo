@@ -130,21 +130,21 @@ void Solve() {
     recvMatrix(MASTER_PROC, cntTag, B);
 
     // {
-    //     cout << "Report from process " << rankProcess << ":\n------------------------\n";
-    //     cout << "Matrix A: " << A.nRows << " " << A.nCols << "\n";
+    //     cerr << "Report from process " << rankProcess << ":\n------------------------\n";
+    //     cerr<< "Matrix A: " << A.nRows << " " << A.nCols << "\n";
     //     for(int i = 0; i < A.nRows; ++i)
     //         for(int j = 0 ; j < A.nCols; ++j)
-    //             cout << A.a[i][j] << (j == A.nCols - 1 ? "\n" : " ");
-    //     cout << "----------------\n";
-    //     cout << "Matrix B: " << B.nRows << " " << B.nCols << "\n";
+    //             cerr<< A.a[i][j] << (j == A.nCols - 1 ? "\n" : " ");
+    //     cerr<< "----------------\n";
+    //     cerr<< "Matrix B: " << B.nRows << " " << B.nCols << "\n";
     //     for(int i = 0; i < B.nRows; ++i)
     //         for(int j = 0 ; j < B.nCols; ++j)
-    //             cout << B.a[i][j] << (j == B.nCols - 1 ? "\n" : " ");
-    //             cout << "----------------\n";   
+    //             cerr<< B.a[i][j] << (j == B.nCols - 1 ? "\n" : " ");
+    //             cerr<< "----------------\n";   
     // }
 
-    A = A * B;
-
+    if(A.nCols == B.nRows) // some matrix that is empty
+        A = A * B;
 
     cntTag = 0;
     sendMatrix(MASTER_PROC, cntTag, A, {0, 0}, {A.nRows - 1, A.nCols - 1});

@@ -54,10 +54,13 @@ void sendMatrix(const int destProcess, int &cntTag, const Matrix &A, const pair<
 
     int encodeSize = (nRows <= 0 || nCols <= 0) ? 0 : nRows * 10000 + nCols;
 
-    MPI_Send(&encodeSize, 1, MPI_INT, destProcess, ++cntTag, MPI_COMM_WORLD);
+    MPI_Request request_size;
+    MPI_Isend(&encodeSize, 1, MPI_INT, destProcess, ++cntTag, MPI_COMM_WORLD, &request_size);
+    MPI_Wait(&request_size, MPI_STATUS_IGNORE);
 
     if (encodeSize != 0)
     {
+
         int *encodeRow = new int[nCols];
         for (int x = leftUp.first; x <= rightDown.first; ++x)
         {
@@ -67,8 +70,11 @@ void sendMatrix(const int destProcess, int &cntTag, const Matrix &A, const pair<
                 encodeRow[(y - leftUp.second)] = A.a[x][y];
             }
 
-            MPI_Send(encodeRow, nCols, MPI_INT, destProcess, ++cntTag, MPI_COMM_WORLD);
+            MPI_Request request_row;
+            MPI_Isend(encodeRow, nCols, MPI_INT, destProcess, ++cntTag, MPI_COMM_WORLD, &request_row);
+            MPI_Wait(&request_row, MPI_STATUS_IGNORE);
         }
+
         // Free memory
         delete[] encodeRow;
     }
@@ -139,6 +145,7 @@ void Solve() {
 
     if(A.nCols == B.nRows) // some matrix that is empty
         A = A * B;
+
 
     cntTag = 0;
     sendMatrix(MASTER_PROC, cntTag, A, {0, 0}, {A.nRows - 1, A.nCols - 1});
