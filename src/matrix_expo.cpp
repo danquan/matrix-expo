@@ -1,4 +1,3 @@
-#include <pthread.h>
 #include <stdio.h>
 #include <cassert>
 #include <cstring>
@@ -14,6 +13,7 @@ class Setting {
 public:
     int numThread;
     string input1, input2;
+    string output;
 private:
     Setting() {
         numThread = 1;
@@ -48,6 +48,14 @@ public:
                 strcmp(argv[i], "-input2") == 0) {
                     
                 input2 = argv[i + 1];
+            }
+
+            if (strcmp(argv[i], "--o") == 0 ||
+                strcmp(argv[i], "--output") == 0 ||
+                strcmp(argv[i], "-o") == 0 ||
+                strcmp(argv[i], "-output") == 0) {
+                    
+                output = argv[i + 1];
             }
         }
     }
@@ -98,15 +106,6 @@ void Read() {
     in.open(Setting::getInstance().input2);
     in >> b;
     in.close();
-
-    cout << "Matrix A is:\n";
-    cout << a.nRows << " " << a.nCols << "\n";
-    for (int i = 0; i < a.nRows; ++i) {
-        for (int j = 0; j < a.nCols; ++j) {
-            cout << a.a[i][j] << " ";
-        }
-        cout << "\n";
-    }
 }
 
 void Solve() {
@@ -120,16 +119,17 @@ int main(int argc, char **argv)
 
     Read();
 
+    freopen(Setting::getInstance().output.c_str(), "w", stdout);
+
     int startTime = 1000 * clock() / CLOCKS_PER_SEC;
     Solve();
 
-    printf("Matrix is:\n");
-
+    cout << ans.nRows << " " << ans.nCols << "\n";
     for (int i = 0; i < a.nRows; ++i) {
         for (int j = 0; j < b.nCols; ++j) {
-            printf("%d ", ans.a[i][j]);
+            cout << ans.a[i][j] << " ";
         }
-        printf("\n");
+        cout << "\n";
     }
 
     int endTime = 1000 * clock() / CLOCKS_PER_SEC;
