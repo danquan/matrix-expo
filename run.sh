@@ -1,0 +1,2 @@
+./matrix_expo --input1 test/1k1k1e9.inp --input2 test/1k1k1e9.inp --output test/1k1k1e9-true.out
+./matrix_expo_pthreads rix_Expo -nt 5 --input1 test/1k1k1e9.inp --input2 test/1k1k1e9.inp --output test/1k1k1e9.out
