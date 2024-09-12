@@ -6,7 +6,7 @@
 #include <ctime>
 using namespace std;
 
-constexpr int N = 1e3 + 5;
+constexpr int N = 5e3 + 5;
 constexpr int mod = 1e9 + 7;
 
 class Setting {
@@ -124,6 +124,7 @@ int main(int argc, char **argv)
     int startTime = 1000 * clock() / CLOCKS_PER_SEC;
     Solve();
 
+    /*
     cout << ans.nRows << " " << ans.nCols << "\n";
     for (int i = 0; i < a.nRows; ++i) {
         for (int j = 0; j < b.nCols; ++j) {
@@ -131,6 +132,7 @@ int main(int argc, char **argv)
         }
         cout << "\n";
     }
+    */
 
     int endTime = 1000 * clock() / CLOCKS_PER_SEC;
 

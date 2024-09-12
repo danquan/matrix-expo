@@ -4,10 +4,13 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
-#include <ctime>
+#include <time.h>
+#include <chrono>
+#include <cmath>
 using namespace std;
+using namespace std::chrono;
 
-constexpr int N = 1e3 + 5;
+constexpr int N = 5e3 + 5;
 constexpr int mod = 1e9 + 7;
 
 class Setting {
@@ -144,7 +147,10 @@ int main(int argc, char **argv)
 
     freopen(Setting::getInstance().output.c_str(), "w", stdout);
 
-    int startTime = 1000 * clock() / CLOCKS_PER_SEC;
+    // int startTime = 1000 * clock() / CLOCKS_PER_SEC;
+    // auto startTime = high_resolution_clock::now();
+    struct timespec startTime;
+    clock_gettime(CLOCK_REALTIME, &startTime);
 
     int numThread = Setting::getInstance().numThread;
     pthread_t *threads = new pthread_t[numThread]; // Mảng chứa ID của các luồng
@@ -166,6 +172,7 @@ int main(int argc, char **argv)
 
     printf("Main: All threads completed!!!\n");
 
+    /*
     cout << ans.nRows << " " << ans.nCols << "\n";
     for (int i = 0; i < a.nRows; ++i) {
         for (int j = 0; j < b.nCols; ++j) {
@@ -173,9 +180,13 @@ int main(int argc, char **argv)
         }
         cout << "\n";
     }
+    */
 
-    int endTime = 1000 * clock() / CLOCKS_PER_SEC;
-
-    cout << "Time: " << (endTime - startTime) << "ms\n";
+    // int endTime = 1000 * clock() / CLOCKS_PER_SEC;
+    // auto endTime = high_resolution_clock::now();
+    struct timespec endTime;
+    clock_gettime(CLOCK_REALTIME, &endTime);
+    double elapsed = (endTime.tv_sec - startTime.tv_sec) + (endTime.tv_nsec - startTime.tv_nsec) / 1e9;
+    cout << "Time: " << round(elapsed * 1000) << "ms\n";
     return 0;
 }
