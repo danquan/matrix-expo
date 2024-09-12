@@ -141,13 +141,13 @@ int main(int argc, char **argv)
     printf("Main: All threads completed!!!\n");
 
     
-    cout << ans.nRows << " " << ans.nCols << "\n";
-    for (int i = 0; i < a.nRows; ++i) {
-        for (int j = 0; j < b.nCols; ++j) {
-            cout << ans.a[i][j] << " ";
-        }
-        cout << "\n";
-    }
+    // cout << ans.nRows << " " << ans.nCols << "\n";
+    // for (int i = 0; i < a.nRows; ++i) {
+    //     for (int j = 0; j < b.nCols; ++j) {
+    //         cout << ans.a[i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
     
     // int endTime = 1000 * clock() / CLOCKS_PER_SEC;
     struct timespec endTime;
