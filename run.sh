@@ -6,4 +6,4 @@
 ./matrix_expo_openmp_2 -nt 2 --input1 test/101010.inp --input2 test/101010.inp --output output/101010_openmp_2_2.out
 # ./matrix_expo_openmp_2.1 -nt 2 --input1 test/101010.inp --input2 test/101010.inp --output output/101010_openmp_2.1_2.out
 # ./matrix_expo_openmp_2.2 -nt 2 --input1 test/101010.inp --input2 test/101010.inp --output output/101010_openmp_2.2_2.out
-
+mpirun -np 2 ./matrix_expo_mpi_1 --input1 test/101010.inp --input2 test/101010.inp --output output/101010_mpi_1_2.out
