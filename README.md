@@ -5,11 +5,12 @@ Tính tích hai ma trận $A, B$; tức là $A\times B$ sử dụng thư viện 
 <h1>Yêu cầu:</h1>
 
 - Trình dịch C++ GNU: https://gcc.gnu.org/
-- Thư viện \href{https://www.mpich.org/}{mpich}
 
-<h1>Các ý tưởng nhân ma trận đa luồng</h1>
+- Thư viện [mpich](https://www.mpich.org/) hoặc [openmpi](https://www.open-mpi.org/) hoặc [Intel MPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html#gs.eiek3g)
 
-<h2>1. Chia nhỏ bảng ma trận kết quả - Matrix_Expo_1.cpp</h2>
+<h1>Các ý tưởng nhân ma trận đa tiến trình</h1>
+
+<h2>1. Chia nhỏ bảng ma trận kết quả - mpi_1.cpp</h2>
 
 Có $p + 1$ processes thì chia ra làm $p$ phần dọc hoặc ngang tùy ý:
 
@@ -26,7 +27,7 @@ Mỗi process sẽ tính một phần như đã chia; tổng độ phức tạp:
 - Thời gian: $O(\frac{n^3}{p})$
 - Vận chuyển: $O(\frac{mn}{p} + mn)$ [Master -> Worker] + $O(\frac{mn}{p})$ [Worker -> Master]
 
-<h2>2. Giữ nguyên bảng ma trận kết quả, chia nhỏ ma trận A, B - Matrix_Expo_2</h2>
+<h2>2. Giữ nguyên bảng ma trận kết quả, chia nhỏ ma trận A, B </h2>
 
 Có $p + 1$ processes thì chia ra A ra làm $p$ phần dọc và B thành $p$ phần ngang:
 
@@ -56,7 +57,7 @@ Sau đó tính tổng chập của các ma trận mà các process trả về, t
 
 Dự đoán cách chia 2 tốt hơn cách chia 1 (Do master phải gửi đi ít thông tin hơn, nên thời gian gửi đi của master ít hơn, còn các worker gửi về song song)
 
-<h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang - Matrix_Expo_3</h2>
+<h2>3. Chia nhỏ ma trận đáp án theo cả dọc và ngang</h2>
 
 Với $q = \sqrt{p}$, ma trận sẽ có dạng:
 
@@ -71,18 +72,3 @@ Với $q = \sqrt{p}$, ma trận sẽ có dạng:
 - Nhược điểm:
     - Không tận dụng được hết các process (Do số process đôi khi không phải số chính phương)
     - Cài đặt async rất khó
-
-<h2>4. Thay đổi mô hình tính toán</h2>
-
-- Thay vì sử dụng mô hình Master-Worker hay Peer-to-Peer, thiết kế ra một mô hình mới
-- Mô hình sử dụng chia để trị:
-
-                          Master
-                        /        \
-                Worker1             Worker2
-                /   \              /       \
-        Worker3     Worker4     Worker5     Worker6
-
-- Dự đoán sẽ tốt khi có nhiều process
-
------------------------------------------------------
