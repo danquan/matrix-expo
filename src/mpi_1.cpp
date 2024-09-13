@@ -286,13 +286,13 @@ int main(int argc, char **argv)
     mpiout << "Main: All processes completed!!!\n";
 
     // Print result
-    mpiout << ans.nRows << " " << ans.nCols << "\n";
-    for (int i = 0; i < a.nRows; ++i) {
-        for (int j = 0; j < b.nCols; ++j) {
-            mpiout << ans.a[i][j] << " ";
-        }
-        mpiout << "\n";
-    }
+    // mpiout << ans.nRows << " " << ans.nCols << "\n";
+    // for (int i = 0; i < a.nRows; ++i) {
+    //     for (int j = 0; j < b.nCols; ++j) {
+    //         mpiout << ans.a[i][j] << " ";
+    //     }
+    //     mpiout << "\n";
+    // }
 
     // int endTime = 1000 * clock() / CLOCKS_PER_SEC;
     // auto endTime = high_resolution_clock::now();
