@@ -1,3 +1,3 @@
 all:
-	mpicxx -O2 Matrix_Expo_1_async_noWait.cpp -o Matrix_Expo
-	mpirun -np 5 ./Matrix_Expo
+	# g++ -O2 src/matrix_expo -o matrix_expo
+	mpicxx -O2 src/mpi_1.cpp -o matrix_expo_mpi_1
